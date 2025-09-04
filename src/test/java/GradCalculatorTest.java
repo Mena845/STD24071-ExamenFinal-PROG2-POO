@@ -11,7 +11,7 @@ public class GradCalculatorTest {
 
         @Test
         void testGetExamGradeAndCourseGrade() {
-            Teacher prof = Teacher.builder().id(1).firstName("RAMAROZAKA").lastName("Toky").specialty("Java").build();
+            Teacher prof = Teacher.builder().id(1).firstName("RAMAROZAKA").lastName("Toky").birthDate(LocalDate.of(1999 , 12 ,12)).email("toky@gamil.com").specialty("Java").build();
             Course prog2 = Course.builder().id(1).label("PROG2").credits(6).teacher(prof).build();
             Exam exam1 = Exam.builder().id(1).title("DS1").course(prog2).date(Instant.now()).coefficient(2).build();
             Exam exam2 = Exam.builder().id(2).title("DS2").course(prog2).date(Instant.now()).coefficient(3).build();
@@ -29,6 +29,6 @@ public class GradCalculatorTest {
             double noteFinale = service.getCourseGrade(prog2, etu, Instant.now());
 
             assertEquals(10.0, noteExam1);
-            assertEquals(13.0, noteFinale); // (10*2 + 15*3)/5 = 13
+            assertEquals(13.0, noteFinale);
         }
 }
