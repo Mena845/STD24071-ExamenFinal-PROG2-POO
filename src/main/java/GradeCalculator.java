@@ -7,19 +7,15 @@ public class GradeCalculator {
         this.grades = grades;
     }
 
-    public String getExamGrade(Exam exam, Student student, Instant t) {
-        double grade = grades.stream()
+    public double getExamGrade(Exam exam, Student student, Instant t) {
+        return grades.stream()
                 .filter(g -> g.getStudent().equals(student) && g.getExam().equals(exam))
                 .findFirst()
                 .map(g -> g.getValueAt(t))
                 .orElse(0.0);
-
-        return "The grade of " + student.getFirstName() + " " + student.getLastName() +
-                " for the exam '" + exam.getTitle() + "' is " + grade;
     }
 
-
-    public String getCourseGrade(Course course, Student student, Instant t) {
+    public double getCourseGrade(Course course, Student student, Instant t) {
         List<Grade> courseGrades = grades.stream()
                 .filter(g -> g.getStudent().equals(student) && g.getExam().getCourse().equals(course))
                 .toList();
@@ -34,12 +30,8 @@ public class GradeCalculator {
             totalCoeff += coeff;
         }
 
-        double finalGrade = totalCoeff == 0 ? 0.0 : total / totalCoeff;
-
-        return "The final grade of " + student.getFirstName() + " " + student.getLastName() +
-                " for the course '" + course.getLabel() + "' is " + finalGrade;
+        return totalCoeff == 0 ? 0 : total / totalCoeff;
     }
-
 
 }
 
